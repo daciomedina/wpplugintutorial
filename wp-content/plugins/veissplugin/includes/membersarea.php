@@ -37,9 +37,13 @@ class MembersArea{
     }
     
     public function wphooks_members_logged_out_redirect(){
-        
-        if( is_single() && in_array( self::MEMBERS_CATEGORY,$this->get_categories() ) &&  !is_user_logged_in() && !in_array($this->get_user_role(),$allowedRoles)){
-            wp_redirect( home_url() );
+        $allowedRoles = ["administrator","subscriber"];
+        if( is_single() && 
+            in_array( self::MEMBERS_CATEGORY,$this->get_categories() ) &&  
+            !is_user_logged_in() && 
+            !in_array($this->get_user_role(),$allowedRoles)){
+            
+                wp_redirect( home_url() );
             die;
         }
     }
@@ -52,6 +56,7 @@ class MembersArea{
         }
         return $categories_name;
     }
+
     private function get_user_role():string {
         $user = wp_get_current_user();
         if(!$user){
