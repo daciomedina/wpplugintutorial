@@ -1,0 +1,48 @@
+# Translation of Plugins - Debug Bar - Stable (latest release) in Spanish (Spain)
+# This file is distributed under the same license as the Plugins - Debug Bar - Stable (latest release) package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2020-11-28 09:14:45+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: GlotPress/3.0.0-alpha.2\n"
+"Language: es\n"
+"Project-Id-Version: Plugins - Veiss - Stable (latest release)\n"
+
+#. Author URI of the plugin
+msgid "https://wordpress.org/"
+msgstr "https://es.wordpress.org/"
+
+#. Author of the plugin
+msgid "wordpressdotorg"
+msgstr "wordpressdotorg"
+
+#. Description of the plugin
+msgid "How to create a WordPress plugin OOP"
+msgstr "Como crear un plugin OOP de WordPress"
+
+#. Plugin URI of the plugin
+msgid "https://wordpress.org/plugins/debug-bar/"
+msgstr "https://es.wordpress.org/plugins/debug-bar/"
+
+#. Plugin Name of the plugin
+msgid "Veiss Plugin"
+msgstr "Veiss Plugin"
+
+#: includes/membersarea.php:26
+msgid "Members area Plugin"
+msgstr "Plugin de Area de Miembros"
+
+#: includes/membersarea.php:27
+msgid "Category Select"
+msgstr "Seleccionar Categoría"
+
+#: includes/membersarea.php:59
+msgid "Members Area"
+msgstr "Area de Miembros"
+
+msgid "Here you can select the private category"
+msgstr "Acá puedes determinar la categoría que haremos privada"
+
