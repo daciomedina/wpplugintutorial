@@ -3,9 +3,13 @@
 
 class MembersArea{
     const MEMBERS_CATEGORY_DEFAULT = "miembros";
-
     public $members_category;
 
+    /*****
+     * 
+     *  Todos los add_action y add_filter necesarios para que nuestro plugin funcione
+     * 
+     */
     public function run(){
         add_action('init',[$this,'veissplugin_init']);
         add_action("admin_init",[$this,"membersarea_settings"]);
@@ -19,13 +23,29 @@ class MembersArea{
         add_filter('get_the_archive_title', [$this,'wphooks_category_title_markup'],10,3);
         // Define el menú backend
         add_action('admin_menu',[$this,'membersarea_settings_page']);
+        // Define frontend Styles
+        add_action( 'wp_enqueue_scripts', [$this,'membersarea_frontend_styles'], 100 );
         return;
     }
 
+    /***
+     * 
+     *  veissplugin_init
+     * 
+     *  Carga el textdomain necesario para las traducciones
+     * 
+     */
     public function veissplugin_init(){
         load_plugin_textdomain( 'veissplugin', false, 'veissplugin/languages' );
     }
 
+    /****
+     * 
+     *  membersarea_setting_page
+     * 
+     *  Define el menú admin para el plugin
+     * 
+     */
     public function membersarea_settings_page(){
         add_menu_page(
             __( 'Members area Plugin', 'veissplugin' ),
@@ -37,6 +57,13 @@ class MembersArea{
         );
     }
 
+    /***
+     * 
+     *  membersarea_setting_page
+     * 
+     *  Define el html de la página admin
+     * 
+     */
     public function membersarea_settings_page_markup(){
         // Double check user capabilities
         if ( !current_user_can('manage_options') ) {
@@ -53,6 +80,13 @@ class MembersArea{
         
     }
 
+    /****
+     * 
+     *  membersarea_settings
+     * 
+     *  Define la sección de la página admin y el(los) campos que contendrá
+     * 
+     */
     public function membersarea_settings(){
         if( false == get_option( 'private-category' ) ) {
             add_option( 'private-category' );
@@ -82,6 +116,11 @@ class MembersArea{
           $this->register_my_settings();
     }
 
+    /***
+     * 
+     *  Define una descripción para la página de settings
+     * 
+     */
     public function membersarea_settings_section_callback(){
         esc_html_e( 'Here you can select the private category', 'veissplugin' );
     }
@@ -98,6 +137,14 @@ class MembersArea{
         echo $select_list;
     }
 
+    /****
+     * 
+     *  members_category_only_titles
+     *  
+     *  Muestra solo títulos de los post para la categoría privada
+     * 
+     * 
+     */
     public function members_category_only_titles(){
         $categories_name = $this->get_categories();
         if (in_array($this->members_category,$categories_name) && !is_single()){
@@ -115,6 +162,14 @@ class MembersArea{
         }
     }
 
+    /*****
+     * 
+     *  wphooks_category_title_markup
+     *  
+     *  Limpia Category: en el título de archivo de la categoría privada
+     * 
+     * 
+     */
     public function wphooks_category_title_markup($title,$original_title,$prefix){
         if( is_category( $this->members_category)){
             $title = single_cat_title( '', false );
@@ -123,6 +178,13 @@ class MembersArea{
         return $title;
     }
     
+    /****
+     * 
+     *  wphooks_members_logged_out_redirect 
+     * 
+     *  Redirige al usuario a la home sino pertenece a los roles permitidos
+     * 
+     */
     public function wphooks_members_logged_out_redirect(){
         $allowedRoles = ["administrator","subscriber"];
         if( is_single() && 
@@ -135,10 +197,44 @@ class MembersArea{
         }
     }
 
+    /***
+     * 
+     *  register_my_settings
+     * 
+     *  Registra el(los) campos a modificar en el admin 
+     * 
+     */
     public function register_my_settings(){
         register_setting( 'membersarea_settings', 'private-category' );
     }
 
+
+    /***
+     * 
+     *  membersarea_frontend_styles
+     *  
+     *  Encola estilos de manera condicional
+     */
+    public function membersarea_frontend_styles(){
+        wp_register_style(
+            'membersarea-frontend',
+            plugin_dir_url( __FILE__ ) . 'css/frontend-style.css',
+            [],
+            time()
+        );
+
+        if( is_single() && in_array( $this->members_category,$this->get_categories() )) {
+            wp_enqueue_style( 'membersarea-frontend' );
+        }
+
+    }
+
+    /***
+     *  get_wp_categories_sorted
+     *  
+     *  Obtiene un array ordenado por id con las categorías de WordPress
+     * 
+     */
 
     private function get_wp_categories_sorted():array{
         $categories_obj_list = get_categories();
@@ -152,6 +248,12 @@ class MembersArea{
         return $categories_list;
     }
 
+    /***
+     *  get_categories()
+     * 
+     *  Obtiene un array con los nombres de las categorías de WordPress
+     *  
+     */
     private function get_categories():array{
         $categories = get_the_category();
         $categories_name = [];
@@ -161,6 +263,14 @@ class MembersArea{
         return $categories_name;
     }
 
+
+    /****
+     * 
+     *  get_user_role
+     * 
+     *  Obtiene el rol del usuario actual
+     * 
+     */
     private function get_user_role():string {
         $user = wp_get_current_user();
         if(!$user){
