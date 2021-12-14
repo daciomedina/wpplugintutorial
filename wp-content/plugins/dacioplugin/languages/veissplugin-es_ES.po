@@ -21,7 +21,7 @@ msgstr "wordpressdotorg"
 
 #. Description of the plugin
 msgid "How to create a WordPress plugin OOP"
-msgstr "Como crear un plugin OOP de WordPress"
+msgstr "Como crear un plugin OOP de Prestashop"
 
 #. Plugin URI of the plugin
 msgid "https://wordpress.org/plugins/debug-bar/"
