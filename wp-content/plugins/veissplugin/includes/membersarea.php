@@ -11,7 +11,7 @@ class MembersArea{
      * 
      */
     public function run(){
-        add_action('init',[$this,'veissplugin_init']);
+        add_action('init',[$this,'dacioplugin_init']);
         add_action("admin_init",[$this,"membersarea_settings"]);
         // Obtiene la categoría guardada
         $this->members_category = ((!get_option("private-category")) ? self::MEMBERS_CATEGORY_DEFAULT:get_option("private-category"));
@@ -30,13 +30,13 @@ class MembersArea{
 
     /***
      * 
-     *  veissplugin_init
+     *  dacioplugin_init
      * 
      *  Carga el textdomain necesario para las traducciones
      * 
      */
-    public function veissplugin_init(){
-        load_plugin_textdomain( 'veissplugin', false, 'veissplugin/languages' );
+    public function dacioplugin_init(){
+        load_plugin_textdomain( 'dacioplugin', false, 'dacioplugin/languages' );
     }
 
     /****
@@ -48,12 +48,12 @@ class MembersArea{
      */
     public function membersarea_settings_page(){
         add_menu_page(
-            __( 'Members area Plugin', 'veissplugin' ),
-            __( 'Category Select', 'veissplugin' ),
+            __( 'Members area Plugin', 'dacioplugin' ),
+            __( 'Category Select', 'dacioplugin' ),
             'manage_options',
             'membersarea',
             [$this,'membersarea_settings_page_markup'],
-            'dashicons-admin-plugins'
+            'dashicons-image-rotate-right'
         );
     }
 
@@ -95,7 +95,7 @@ class MembersArea{
             // Unique identifier for the section
             'membersarea_settings_section',
             // Section Title
-            __( 'Members Area', 'veissplugin' ),
+            __( 'Members Area', 'dacioplugin' ),
             // Callback for an optional description
             [$this,'membersarea_settings_section_callback'],
             // Admin page to add section to
@@ -105,7 +105,7 @@ class MembersArea{
             // Unique identifier for field
             'membersarea_settings_custom_text',
             // Field Title
-            __( 'Select Private Category', 'veissplugin'),
+            __( 'Select Private Category', 'dacioplugin'),
             // Callback for field markup
             [$this,'membersarea_settings_custom_select_callback'],
             // Page to go on
@@ -122,7 +122,7 @@ class MembersArea{
      * 
      */
     public function membersarea_settings_section_callback(){
-        esc_html_e( 'Here you can select the private category', 'veissplugin' );
+        esc_html_e( 'Here you can select the private category', 'dacioplugin' );
     }
 
     public function membersarea_settings_custom_select_callback(){

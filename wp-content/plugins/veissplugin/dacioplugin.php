@@ -1,6 +1,6 @@
 <?php
 /*
-Plugin Name: Veiss Plugin
+Plugin Name: Dacio Plugin
 Plugin URI: https://github.com/daciomedina/wpplugintutorial
 Description: How to create a WordPress plugin OOP
 Version: 1.0.0
@@ -8,7 +8,7 @@ Contributors: daciomedina
 Author: Dacio Medina
 License: GPLv2 or later
 License URI:  https://www.gnu.org/licenses/gpl-2.0.html
-Text Domain: veissplugin
+Text Domain: dacioplugin
 Domain Path:  /languages
 */
 
@@ -29,7 +29,7 @@ define( 'PLUGIN_NAME_VERSION', '1.0.0' );
  * This action is documented in includes/class-plugin-name-activator.php
  */
 function activate_plugin_name() {
-	error_log("===========[ Veiss Plugin ]==============================<<< ACTIVADO >>>=============================");
+	error_log("===========[ Dacio Plugin ]==============================<<< ACTIVADO >>>=============================");
 }
 
 /**
@@ -37,7 +37,7 @@ function activate_plugin_name() {
  * This action is documented in includes/class-plugin-name-deactivator.php
  */
 function deactivate_plugin_name() {
-	error_log("===========[ Veiss Plugin ]==============================<<< DESACTIVADO >>>=============================");
+	error_log("===========[ Dacio Plugin ]==============================<<< DESACTIVADO >>>=============================");
 }
 
 register_activation_hook( __FILE__, 'activate_plugin_name' );
